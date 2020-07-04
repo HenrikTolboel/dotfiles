@@ -1,2 +1,2 @@
 # dotfiles
-Hdenrik does dotfiles
+Henrik does dotfiles
