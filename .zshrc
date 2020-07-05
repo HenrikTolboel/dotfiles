@@ -113,8 +113,17 @@ function upfind() {
   # https://superuser.com/questions/455723/is-there-an-upwards-find
   # Usage: upfind -name 'x*'
 
+<<<<<<< HEAD
+=======
+  curpwd=$PWD
+
+>>>>>>> ba253f9... function upfind
   while [[ $PWD != / ]] ; do
     find "$PWD"/ -maxdepth 1 "$@"
     cd ..
   done
+<<<<<<< HEAD
+=======
+  cd $curpwd
+>>>>>>> ba253f9... function upfind
 }
