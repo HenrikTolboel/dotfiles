@@ -108,3 +108,13 @@ setopt no_share_history
 
 alias lt="ls -lart"
 alias h=history
+
+function upfind() {
+  # https://superuser.com/questions/455723/is-there-an-upwards-find
+  # Usage: upfind -name 'x*'
+
+  while [[ $PWD != / ]] ; do
+    find "$PWD"/ -maxdepth 1 "$@"
+    cd ..
+  done
+}
