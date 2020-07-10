@@ -2,13 +2,47 @@
 [include]
         path = ~/.gitconfig.local
 [push]
-	default = simple
+	default = upstream
+	recurseSubmodules = check
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
 [core]
-	autocrlf = input
+	autocrlf = true
+	longpaths = true
+	ignorecase = true
+	fscache = true
+	editor = vim
 [pull]
 	rebase = true
+[fetch]
+	prune = true
+[branch]
+	autosetuprebase = always
+[log]
+	follow = true
+[credential]
+	helper = !'C:\\Users\\hto\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
+[http]
+	sslVerify = true
+	sslBackend = schannel
+	sslCAInfo = C:\\Tools\\git\\bin\\curl-ca-bundle.crt
+[alias]
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	review = "!git fetch origin \"pull-requests/$1/merge\" && git checkout FETCH_HEAD #"
+[init]
+	#templatedir = C:\\Users\\hto/.git-templates
+[merge]
+	renamelimit = 50000
+[status]
+	submoduleSummary = true
+[diff]
+	submodule = log
+[rerere]
+	enabled = true
+	autoupdate = true
+[http "https://bitbucket"]
+	sslVerify = false
