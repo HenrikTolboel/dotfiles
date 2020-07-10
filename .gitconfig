@@ -27,7 +27,7 @@
 	helper = !'C:\\Users\\hto\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
 [http]
 	sslVerify = true
-	sslBackend = schannel
+   #sslBackend = schannel
 	sslCAInfo = C:\\Tools\\git\\bin\\curl-ca-bundle.crt
 [alias]
 	unstage = reset HEAD --
