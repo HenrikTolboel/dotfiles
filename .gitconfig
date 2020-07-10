@@ -28,7 +28,7 @@
 [http]
 	sslVerify = true
    #sslBackend = schannel
-	sslCAInfo = C:\\Tools\\git\\bin\\curl-ca-bundle.crt
+   #sslCAInfo = C:\\Tools\\git\\bin\\curl-ca-bundle.crt
 [alias]
 	unstage = reset HEAD --
 	last = log -1 HEAD
