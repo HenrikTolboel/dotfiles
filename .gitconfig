@@ -24,7 +24,7 @@
 [log]
 	follow = true
 [credential]
-	helper = !'C:\\Users\\hto\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
+   #helper = !'C:\\Users\\hto\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
 [http]
 	sslVerify = true
    #sslBackend = schannel
