@@ -101,6 +101,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+if [[ -f .zshrc.local ]]; then
+  source .zshrc.local
+fi
+
 export LESS=smeqFXR
 
 setopt no_share_history
