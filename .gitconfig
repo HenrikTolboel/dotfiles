@@ -10,7 +10,7 @@
 	process = git-lfs filter-process
 	required = true
 [core]
-	autocrlf = true
+	autocrlf = input
 	longpaths = true
 	ignorecase = true
 	fscache = true
