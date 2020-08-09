@@ -1,8 +1,58 @@
 "set verbose=20
 """
+""" Version $Id: .vimrc,v 1.7 2005/06/14 14:26:29 fma Exp $
+""" (C) Copyright 2000 CCI-Europe. Author : fma
+"""
+""" Revision History """
+""" End of Revisions """
+"
+" My .vimrc file
+" 2000.11.14/LCH: To run vim at home under windows you need:
+"   /net/sccs10/Local/Sun4OS5/share/vim/{vimrc,cciscripts.vim,ccisyntax.vim,newfmgr.vim,utils.vim}
+"   /net/sccs10/Local/Sun4OS5/share/vim/stuff/{cciist.exe,vimls.exe}
+"   $HOME/{.vimrc,.vimrc.priv,.vimrc.syntax}
+" Download vim from http://www.vim.org and install it in e.g. C:\Programmer\Vim
+" Put all the above files there, while substituting a leading . with an _
+" e.g. .vimrc -> _vimrc
+" Create the folder C:/temp/preserve for the swap files.
+" You may also download the 'fixed' font: http://www.hassings.dk/lars/fonts.html
+"
 let loaded_vimspell = 1 " Too much fuss right now
 let loaded_explorer = 1 " Don't want plugin/explorer.vim
 let loaded_netrw    = 1 " Don't want plugin/netrw stuff
+
+if has("win32")
+   " Use CCI standard setup. This happens automatically on UNIX
+   if filereadable($VIM . "/vimrc")
+      source $VIM/vimrc
+   endif
+else
+   " Use CCI standard setup. If system vimrc is /etc/vimrc (Linux) we must source manually
+   " The CCI $VIM/vimrc sets the variable vimrcdir
+   if !exists("vimrcdir")
+      " The CCI $VIM/vimrc has not been run yet
+      if filereadable($VIM . "/vimrc")
+         source $VIM/vimrc
+      endif
+   endif
+endif
+
+" Setup my own color preferences for syntax highlighting
+let tmppath = $HOME . "/" . ".vimrc.syntax"
+"On Win98 HOME is not set, so vim defaults it to C:/
+"and tmppath becomes C://.vimrc.syntax
+"This takes 30 seconds to process, apparently a host file is searched for...
+let tmppath = substitute($HOME . "/" . ".vimrc.syntax", "^C://", "C:/", "")
+if filereadable(tmppath)
+   let usersyntaxfile = tmppath
+else
+   "Typically case on PC's at home, $VIM is C:\Programmer\Vim
+   let tmppath = $VIM . "/" . "_vimrc.syntax"
+   if filereadable(tmppath)
+      let usersyntaxfile = tmppath
+   endif
+endif
+unlet tmppath
 
 " We are ready to enable the syntax system now
 syntax on
@@ -45,44 +95,98 @@ if exists("$INCDIRS")
    execute "set path+=".$INCDIRS
 endif
 
-set directory=/var/preserve/$USER//
-" Uncomment line below to use :emenu. Adds ~1 second to startup time
-source $VIMRUNTIME/menu.vim
+if has("win32")
+   behave xterm
+   set directory=C:/temp/preserve//   " Home of the swap files_
+   if filereadable('C:\Programs\NT_SFU\Shell\grep.EXE')
+      set grepprg=grep\ -n            " Use POSIX grep if available
+   endif
 
-" Make <End> work - Some options cannot be assigned to with 'let'
-exe "set t_@7=\<Esc>OF"
+   " Let VIM know about VisualC++ include files
+   if exists("$include")
+      let more = substitute($include, ';', ',', 'g')
+      let more = substitute(more, ' ', '\\\\\\ ', 'g')
+      execute "set path+=" . more
+      let g:incdirs = g:incdirs.",".more
 
-" Must be _very_ slow to handle triple clicks
-set mousetime=1500
-if &ttymouse == "xterm2"
-   " The xterm2 mode will flood us with messages
-   set ttymouse=xterm
+      let more = substitute($include, ';', '\\\\\\tags,', 'g')
+      execute "set tags+=" . substitute(more, ' ', '\\\\\\ ', 'g') . '\\tags'
+      unlet more
+   endif
+
+   if exists("$SCCSHOME")
+      " Can not handle '/' to '\' conversion otherwise
+      let $SCCSHOME = $SCCSHOME . "/"
+   endif
+
+   if has("gui_running")
+      " http://www.hassings.dk/lars/fonts/fixed613.fon
+      set guifont=fixed613,Courier_New:h9
+      " System menu and quick minimize
+      map <M-Space> :simalt ~<CR>
+      map <M-n> :simalt ~n<CR>
+      " Size the GUI window. Delay positioning until window is created
+      set lines=50
+      set columns=80
+      augroup AutoPos
+      autocmd BufEnter * winp 200 50 | autocmd! AutoPos
+      augroup END
+   endif
+else
+   if (&term == "cygwin") " This seem to have some quirks, work around some
+      set directory=/var/preserve/
+      "let &t_@7="\<Esc>[4~"   " Make <End> work
+      "let &t_kh="\<Esc>[1~"   " Make <Home> work
+   else
+      set directory=/var/preserve/$USER//
+      if has("gui_running")
+         set guifont=fixed
+      else
+         " Uncomment line below to use :emenu. Adds ~1 second to startup time
+         source $VIMRUNTIME/menu.vim
+
+         " Make <End> work - Some options cannot be assigned to with 'let'
+         exe "set t_@7=\<Esc>OF"
+
+         " Must be _very_ slow to handle triple clicks
+         set mousetime=1500
+         if &ttymouse == "xterm2"
+            " The xterm2 mode will flood us with messages
+            set ttymouse=xterm
+         endif
+
+         " Save and restore the "shell" screen on enter and exit
+         let &t_ti = "\<Esc>7\<Esc>[?47h"
+         let &t_te = "\<Esc>[2J\<Esc>[?47l\<Esc>8"
+
+         " Make <Del> mappings work
+         exe "set t_kb=\010"
+         exe "set t_kD=\177"
+
+         " Make shifted cursor keys work.
+         " For the necessary xmodmap commands, see  :help hpterm
+         map  <t_F3>   <S-Up>
+         map! <t_F3>   <S-Up>
+         map  <t_F6>   <S-Down>
+         map! <t_F6>   <S-Down>
+         map  <t_F8>   <S-Left>
+         map! <t_F8>   <S-Left>
+         map  <t_F9>   <S-Right>
+         map! <t_F9>   <S-Right>
+         " To make the shift-Tab <S-Tab> key work, see :help suffixes
+         cmap <Esc>[1~ <C-P>
+         cmap <Esc>[1;2~ <C-P>
+      endif
+   endif
 endif
-
-" Save and restore the "shell" screen on enter and exit
-let &t_ti = "\<Esc>7\<Esc>[?47h"
-let &t_te = "\<Esc>[2J\<Esc>[?47l\<Esc>8"
-
-" Make <Del> mappings work
-exe "set t_kb=\010"
-exe "set t_kD=\177"
-
-" Make shifted cursor keys work.
-" For the necessary xmodmap commands, see  :help hpterm
-map  <t_F3>   <S-Up>
-map! <t_F3>   <S-Up>
-map  <t_F6>   <S-Down>
-map! <t_F6>   <S-Down>
-map  <t_F8>   <S-Left>
-map! <t_F8>   <S-Left>
-map  <t_F9>   <S-Right>
-map! <t_F9>   <S-Right>
-" To make the shift-Tab <S-Tab> key work, see :help suffixes
-cmap <Esc>[1~ <C-P>
-cmap <Esc>[1;2~ <C-P>
-
-set notitle noicon         " Do _not_ mess with title string of my xterm
-
+if has("gui_running")
+    set title icon
+    set titlestring=%F%(\ --\ %a%)
+    set iconstring=%f
+    set guioptions+=a
+else
+    set notitle noicon         " Do _not_ mess with title string of my xterm
+endif
 set showcmd                    " Show chars for command in progress on ruler
 set exrc                       " Allow .vimrc in current dir
 set hidden                     " Dont unload buffers BEWARE OF :q! and :qa! !!!
@@ -90,7 +194,13 @@ set backspace=indent,eol       " Can ^H/^W/^U across lines in insert
 set sidescroll=5
 set scrolloff=4
 set equalprg=Csb               " Use '=' to filter through. == -> current line
-
+if has("win32")
+   if $USERDOMAIN != "CCIEUROPE" && !executable("Csb")
+      if executable($VIM."/cciist.exe")
+         set equalprg=$VIM/cciist.exe
+      endif
+   endif
+endif
 set keywordprg=Sym             " Use 'k' to see usage of sym under cursor
 set textwidth=75
 set whichwrap=h,l,<,>,[,]      " Do not backspace/space across line boundaries
