@@ -114,8 +114,19 @@ export LESS=smeqFXR
 setopt no_share_history
 
 
-alias lt="ls -lart"
+alias lt="ls -lrt"
 alias h=history
+alias m=less
+alias j="jobs -l"
+
+#alias vi mvim --remote-silent
+#alias grepvi='vi `grep -l \$1 \$2`'
+#alias greprm 'rm -i `grep -l \!\!:1 \!\!:2`'
+
+function grepvi() {
+   vim --  `grep -l $1 $2`
+}
+
 
 alias gw='`upfind -name gradlew`'
 
