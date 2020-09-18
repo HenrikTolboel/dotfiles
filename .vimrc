@@ -45,7 +45,7 @@ if exists("$INCDIRS")
    execute "set path+=".$INCDIRS
 endif
 
-set directory=/var/preserve/$USER//
+"set directory=/var/preserve/$USER//
 " Uncomment line below to use :emenu. Adds ~1 second to startup time
 source $VIMRUNTIME/menu.vim
 

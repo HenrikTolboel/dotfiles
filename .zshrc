@@ -101,6 +101,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+#set -xv
 if [[ -f .dircolors ]]; then
    eval `dircolors .dircolors`
 fi
@@ -108,6 +109,7 @@ if [[ -f .zshrc.local ]]; then
   source .zshrc.local
 fi
 
+#set +xv
 
 export LESS=smeqFXR
 
