@@ -154,13 +154,13 @@ nmap (     :bprev<CR>
 nmap )     :bnext<CR>
 nmap F     :files<CR>
 
-if v:version >= 600
+"if v:version >= 600
    nmap Q     :bwipeout<CR>
    nmap !Q    :bwipeout!<CR>
-else
-   nmap Q     :bdelete<CR>
-   nmap !Q    :bdelete!<CR>
-endif
+"else
+"   nmap Q     :bdelete<CR>
+"   nmap !Q    :bdelete!<CR>
+"endif
 nmap [f    :bunload<CR>
 nmap zx    :set invhlsearch<CR>
 nmap [s    :exe "g/".@/."/p"<CR>
@@ -256,11 +256,11 @@ augroup Private
 augroup end
 
 function! SetLocalOpt(Str)
-   if v:version >= 600
+"   if v:version >= 600
       exe "setlocal ".a:Str
-   else 
-      exe "set ".a:Str
-   endif
+"   else 
+"      exe "set ".a:Str
+"   endif
 endfunc
 command -nargs=* -bar SetLocalOpt call SetLocalOpt("<args>")
 
@@ -342,18 +342,81 @@ function! SetSrcOpts()
    endif
 endfunc
 
-
 " Pick a status line, or craft one yourself
 " statusline #1, two expressions -- Use a continuation line & quote SCCS keys
-set statusline=%<%f%=\ %([%1*%M\%*%n%R\%Y%{VarExists(',GZ','b:zipflag')}
-              \]%)\ %02c%V(%02B)C\ %3l/%LL\ %P
+" set statusline=%<%f%=\ %([%1*%M\%*%n%R\%Y%{VarExists(',GZ','b:zipflag')}
+"              \]%)\ %02c%V(%02B)C\ %3l/%LL\ %P
 " statusline #2, zero expressions
-"set statusline=%<%f%=\ %([%n%Xm%Xr%&,HL&h]%)\ %-19(%3l,%02c%'%o%)'%02Xb'
+" set statusline=%<%f%=\ %([%n%Xm%Xr%&,HL&h]%)\ %-19(%3l,%02c%'%o%)'%02Xb'
 " statusline #3, the default one
-"set statusline&
+" set statusline&
 
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+" see https://shapeshed.com/vim-statuslines/
+" https://learnvimscriptthehardway.stevelosh.com/chapters/17.html
+" colors from :so $VIMRUNTIME/syntax/hitest.vim
+"set statusline=
+"set statusline+=%#PmenuSel#
+"set statusline+=%{StatuslineGit()}
+"set statusline+=%#LineNr#
+"set statusline+=\ %f
+"set statusline+=%m\
+"set statusline+=%=
+"set statusline+=%#CursorColumn#
+"set statusline+=\ %y
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\[%{&fileformat}\]
+"set statusline+=\ %p%%
+"set statusline+=\ %l:%c
+"set statusline+=\ 
+
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=\ %F
+set statusline+=\ %m
+
+set statusline+=%=        " Switch to the right side
+
+
+set statusline+=%l        " Current line
+set statusline+=:         " Separator
+set statusline+=%c        " column
+set statusline+=/         " Separator
+set statusline+=%L        " Total lines
+set statusline+=\ %p%%    " percentage through file
+set statusline+=\ %y      " Filetype of the file
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+
+
+"set statusline+=%f        " Path to the file
+"set statusline+=%F        " Full path to the file
+"set statusline+=\ %m      " modified marker
+"set statusline+=%=        " Switch to the right side
+"set statusline+=%c        " column
+"set statusline+=:         " Separator
+"set statusline+=%l        " Current line
+"set statusline+=/         " Separator
+"set statusline+=%L        " Total lines
+"set statusline+=\ %p%%    " percentage through file
+"set statusline+=\ -\      " Separator
+"set statusline+=FileType: " Label
+"set statusline+=%y        " Filetype of the file
+
+"
 " Coloring of the modified flag
-highlight User1 cterm=bold ctermfg=red ctermbg=gray gui=bold guifg=red guibg=gray
+"highlight User1 cterm=bold ctermfg=red ctermbg=gray gui=bold guifg=red guibg=gray
 
 " Testing
 "set title titlestring=%<%F%=%l/%L-%P titlelen=70
