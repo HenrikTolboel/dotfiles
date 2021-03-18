@@ -155,13 +155,9 @@ nmap (     :bprev<CR>
 nmap )     :bnext<CR>
 nmap F     :files<CR>
 
-"if v:version >= 600
-   nmap Q     :bwipeout<CR>
-   nmap !Q    :bwipeout!<CR>
-"else
-"   nmap Q     :bdelete<CR>
-"   nmap !Q    :bdelete!<CR>
-"endif
+nmap Q     :bwipeout<CR>
+nmap !Q    :bwipeout!<CR>
+
 nmap [f    :bunload<CR>
 nmap zx    :set invhlsearch<CR>
 nmap [s    :exe "g/".@/."/p"<CR>
@@ -257,11 +253,7 @@ augroup Private
 augroup end
 
 function! SetLocalOpt(Str)
-"   if v:version >= 600
-      exe "setlocal ".a:Str
-"   else 
-"      exe "set ".a:Str
-"   endif
+   exe "setlocal ".a:Str
 endfunc
 command -nargs=* -bar SetLocalOpt call SetLocalOpt("<args>")
 
@@ -363,23 +355,11 @@ endfunction
 
 " see https://shapeshed.com/vim-statuslines/
 " https://learnvimscriptthehardway.stevelosh.com/chapters/17.html
-" colors from :so $VIMRUNTIME/syntax/hitest.vim
 " help from :help statusline
-"set statusline=
+" colors from :so $VIMRUNTIME/syntax/hitest.vim
 "set statusline+=%#PmenuSel#
-"set statusline+=%{StatuslineGit()}
 "set statusline+=%#LineNr#
-"set statusline+=\ %f
-"set statusline+=%m\
-"set statusline+=%=
 "set statusline+=%#CursorColumn#
-"set statusline+=\ %y
-"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"set statusline+=\[%{&fileformat}\]
-"set statusline+=\ %p%%
-"set statusline+=\ %l:%c
-"set statusline+=\ 
-
 
 set statusline=                                              " emptyline
 set statusline+=%#PmenuSel#                                  " white on black
@@ -404,20 +384,6 @@ set statusline+=\[%{&fileformat}\]                           " e.g. [unix]
 set statusline+=\ %02c%V(%02B)C                              " col(hex)C
 set statusline+=\ %3l/%LL                                    " line/totallinesL
 set statusline+=\ %P                                         " Top / Bot / All / % through file
-
-"set statusline+=%f        " Path to the file
-"set statusline+=%F        " Full path to the file
-"set statusline+=\ %m      " modified marker
-"set statusline+=%=        " Switch to the right side
-"set statusline+=%c        " column
-"set statusline+=:         " Separator
-"set statusline+=%l        " Current line
-"set statusline+=/         " Separator
-"set statusline+=%L        " Total lines
-"set statusline+=\ %p%%    " percentage through file
-"set statusline+=\ -\      " Separator
-"set statusline+=FileType: " Label
-"set statusline+=%y        " Filetype of the file
 
 "
 " Coloring of the modified flag
@@ -557,6 +523,4 @@ func! SwapIt(VisualMode)
 endfunc
 
 "vmap h  <ESC>g'<O<C-U>#ifdef UNCOMMENTED_BY_LCH<ESC>g'>o<C-U>#endif<ESC>
-
-
 
