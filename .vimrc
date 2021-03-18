@@ -92,7 +92,8 @@ set scrolloff=4
 set equalprg=Csb               " Use '=' to filter through. == -> current line
 
 set keywordprg=Sym             " Use 'k' to see usage of sym under cursor
-set textwidth=75
+"set textwidth=75
+set textwidth=100
 set whichwrap=h,l,<,>,[,]      " Do not backspace/space across line boundaries
 set autoindent
 set winheight=10               " Make new windows this high
@@ -344,8 +345,7 @@ endfunc
 
 " Pick a status line, or craft one yourself
 " statusline #1, two expressions -- Use a continuation line & quote SCCS keys
-" set statusline=%<%f%=\ %([%1*%M\%*%n%R\%Y%{VarExists(',GZ','b:zipflag')}
-"              \]%)\ %02c%V(%02B)C\ %3l/%LL\ %P
+" set statusline=%<%f%=\ %([%1*%M\%*%n%R\%Y%{VarExists(',GZ','b:zipflag')}\]%)\ %02c%V(%02B)C\ %3l/%LL\ %P
 " statusline #2, zero expressions
 " set statusline=%<%f%=\ %([%n%Xm%Xr%&,HL&h]%)\ %-19(%3l,%02c%'%o%)'%02Xb'
 " statusline #3, the default one
@@ -364,6 +364,7 @@ endfunction
 " see https://shapeshed.com/vim-statuslines/
 " https://learnvimscriptthehardway.stevelosh.com/chapters/17.html
 " colors from :so $VIMRUNTIME/syntax/hitest.vim
+" help from :help statusline
 "set statusline=
 "set statusline+=%#PmenuSel#
 "set statusline+=%{StatuslineGit()}
@@ -380,25 +381,29 @@ endfunction
 "set statusline+=\ 
 
 
-set statusline=
-set statusline+=%#PmenuSel#
-set statusline+=%{StatuslineGit()}
-set statusline+=\ %F
-set statusline+=\ %m
+set statusline=                                              " emptyline
+set statusline+=%#PmenuSel#                                  " white on black
+set statusline+=%{StatuslineGit()}                           " git status
+set statusline+=\ %F                                         " full path
+set statusline+=\ %m                                         " modified
 
-set statusline+=%=        " Switch to the right side
+set statusline+=%=                                           " Switch to the right side
 
+"set statusline+=%l                                           " Current line
+"set statusline+=:                                            " Separator
+"set statusline+=%c                                           " column
+"set statusline+=/                                            " Separator
+"set statusline+=%L                                           " Total lines
+"set statusline+=\ %p%%                                       " percentage through file
+"set statusline+=\ %y                                         " Filetype of the file
+"set statusline+=\ \[%n%Y%M%R\]                               " bufferno,filetype,modified,readonly
+set statusline+=\ \[%n%Y%R\]                                 " bufferno,filetype,readonly
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}   " e.g. utf-8
+set statusline+=\[%{&fileformat}\]                           " e.g. [unix]
 
-set statusline+=%l        " Current line
-set statusline+=:         " Separator
-set statusline+=%c        " column
-set statusline+=/         " Separator
-set statusline+=%L        " Total lines
-set statusline+=\ %p%%    " percentage through file
-set statusline+=\ %y      " Filetype of the file
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-
+set statusline+=\ %02c%V(%02B)C                              " col(hex)C
+set statusline+=\ %3l/%LL                                    " line/totallinesL
+set statusline+=\ %P                                         " Top / Bot / All / % through file
 
 "set statusline+=%f        " Path to the file
 "set statusline+=%F        " Full path to the file
