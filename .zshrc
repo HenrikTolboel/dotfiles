@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -68,7 +68,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose z osx vi-mode)
+plugins=(git docker docker-compose z macos vi-mode kubectl helm bazel)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -131,6 +131,8 @@ function grepvi() {
 
 
 alias gw='`upfind -name gradlew`'
+alias chrome="/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
+#alias k=kubectl
 
 function upfind() {
   # https://superuser.com/questions/455723/is-there-an-upwards-find
@@ -143,4 +145,17 @@ function upfind() {
     cd ..
   done
   cd $curpwd
+}
+
+function idea() {
+   $HOME/bin/idea >& /tmp/idea.log.$$ &
+}
+
+
+function open() {
+  /mnt/c/Windows/explorer.exe $@
+}
+
+function code() {
+   /mnt/c/Users/hto/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe \"\$@\";
 }
