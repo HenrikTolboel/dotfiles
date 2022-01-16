@@ -1,5 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH
+
+export PATH="$PATH:/Users/henrik/bin/istio-1.9.4/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -159,3 +162,15 @@ function open() {
 function code() {
    /mnt/c/Users/hto/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe \"\$@\";
 }
+
+export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
+
+alias java8='export JAVA_HOME=$JAVA_8_HOME'
+alias java11='export JAVA_HOME=$JAVA_11_HOME'
+alias java17='export JAVA_HOME=$JAVA_17_HOME'
+
+# default to Java 11
+java11
+

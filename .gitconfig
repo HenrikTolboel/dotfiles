@@ -34,6 +34,7 @@
 	last = log -1 HEAD
 	review = "!git fetch origin \"pull-requests/$1/merge\" && git checkout FETCH_HEAD #"
 [init]
+	defaultBranch = trunk
 	#templatedir = C:\\Users\\hto/.git-templates
 [merge]
 	renamelimit = 50000
