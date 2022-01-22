@@ -1,18 +1,20 @@
+set nocompatible
+set mouse=a
 "set verbose=20
 """
-let loaded_vimspell = 1 " Too much fuss right now
-let loaded_explorer = 1 " Don't want plugin/explorer.vim
-let loaded_netrw    = 1 " Don't want plugin/netrw stuff
+"let loaded_vimspell = 1 " Too much fuss right now
+"let loaded_explorer = 1 " Don't want plugin/explorer.vim
+"let loaded_netrw    = 1 " Don't want plugin/netrw stuff
 
 " We are ready to enable the syntax system now
 syntax on
 if v:version >= 600 | filetype plugin indent on |endif
 if v:version >= 700 | set completeopt= |endif
-augroup filetype
-autocmd BufEnter *.r set ft=xdefaults
-"LCH 2008.05.29 added filetyp objc for *.m
-"autocmd BufRead *.m,*.mm set ft=objc
-augroup END
+"augroup filetype
+"autocmd BufEnter *.r set ft=xdefaults
+""LCH 2008.05.29 added filetyp objc for *.m
+""autocmd BufRead *.m,*.mm set ft=objc
+"augroup END
 
 let CurPath = getcwd()
 while strlen(CurPath) > 3
@@ -47,56 +49,55 @@ endif
 
 "set directory=/var/preserve/$USER//
 " Uncomment line below to use :emenu. Adds ~1 second to startup time
-source $VIMRUNTIME/menu.vim
+"source $VIMRUNTIME/menu.vim
 
 " Make <End> work - Some options cannot be assigned to with 'let'
-exe "set t_@7=\<Esc>OF"
+"exe "set t_@7=\<Esc>OF"
 
 " Must be _very_ slow to handle triple clicks
-set mousetime=1500
-if &ttymouse == "xterm2"
-   " The xterm2 mode will flood us with messages
-   set ttymouse=xterm
-endif
+"set mousetime=1500
+"if &ttymouse == "xterm2"
+   "" The xterm2 mode will flood us with messages
+   "set ttymouse=xterm
+"endif
 
 " Save and restore the "shell" screen on enter and exit
-let &t_ti = "\<Esc>7\<Esc>[?47h"
-let &t_te = "\<Esc>[2J\<Esc>[?47l\<Esc>8"
+"let &t_ti = "\<Esc>7\<Esc>[?47h"
+"let &t_te = "\<Esc>[2J\<Esc>[?47l\<Esc>8"
 
 " Make <Del> mappings work
-exe "set t_kb=\010"
-exe "set t_kD=\177"
+"exe "set t_kb=\010"
+"exe "set t_kD=\177"
 
 " Make shifted cursor keys work.
 " For the necessary xmodmap commands, see  :help hpterm
-map  <t_F3>   <S-Up>
-map! <t_F3>   <S-Up>
-map  <t_F6>   <S-Down>
-map! <t_F6>   <S-Down>
-map  <t_F8>   <S-Left>
-map! <t_F8>   <S-Left>
-map  <t_F9>   <S-Right>
-map! <t_F9>   <S-Right>
+"map  <t_F3>   <S-Up>
+"map! <t_F3>   <S-Up>
+"map  <t_F6>   <S-Down>
+"map! <t_F6>   <S-Down>
+"map  <t_F8>   <S-Left>
+"map! <t_F8>   <S-Left>
+"map  <t_F9>   <S-Right>
+"map! <t_F9>   <S-Right>
 " To make the shift-Tab <S-Tab> key work, see :help suffixes
-cmap <Esc>[1~ <C-P>
-cmap <Esc>[1;2~ <C-P>
+"cmap <Esc>[1~ <C-P>
+"cmap <Esc>[1;2~ <C-P>
 
 set notitle noicon         " Do _not_ mess with title string of my xterm
 
 set showcmd                    " Show chars for command in progress on ruler
 set exrc                       " Allow .vimrc in current dir
-set hidden                     " Dont unload buffers BEWARE OF :q! and :qa! !!!
+"set hidden                     " Dont unload buffers BEWARE OF :q! and :qa! !!!
 set backspace=indent,eol       " Can ^H/^W/^U across lines in insert
 set sidescroll=5
 set scrolloff=4
 set equalprg=Csb               " Use '=' to filter through. == -> current line
-
 set keywordprg=Sym             " Use 'k' to see usage of sym under cursor
 "set textwidth=75
 set textwidth=100
 set whichwrap=h,l,<,>,[,]      " Do not backspace/space across line boundaries
 set autoindent
-set winheight=10               " Make new windows this high
+"set winheight=10               " Make new windows this high
 set cmdheight=2                " status line area height - higher for quickfix
 set laststatus=2               " always with statusline
 set showmatch
@@ -105,9 +106,9 @@ set autowrite                  " write files back at ^Z, :make etc.
 "set shiftwidth=3              " These are now handled at SetBufOpts
 "set softtabstop=3
 "set expandtab
-set mouse=nv                   " Use xterm mouse mode in insert/cmdline/prompt
-set clipboard=autoselect       " Visual to/from clipboard
-set fileformats=unix,dos,mac
+"set mouse=nv                   " Use xterm mouse mode in insert/cmdline/prompt
+"set clipboard=autoselect       " Visual to/from clipboard
+"set fileformats=unix,dos,mac
 set showbreak=________         " Show me where long lines break
 set showfulltag                " Insert function prototype in ^X^]
 set incsearch nohlsearch       " Search while typing, 'zx' toggles highlighting
@@ -121,8 +122,7 @@ set wildmode=longest:list,full " Show all candidates & extend before enumerating
 set complete=.,w,b,u,]         " Complete from windows, buffers(+unloaded), tags
 
 " LCH preferences begin
-set clipboard=exclude:.*       " Never connect to X server
-set scrolljump=1
+"set clipboard=exclude:.*       " Never connect to X server
 set nowrapscan
 set ignorecase
 "set expandtab
@@ -163,10 +163,10 @@ nmap zx    :set invhlsearch<CR>
 nmap [s    :exe "g/".@/."/p"<CR>
 
 " These seem to be suitable for hitting all keys in mapping within timeout
-set timeoutlen=500
-set ttimeoutlen=50
+"set timeoutlen=500
+"set ttimeoutlen=50
 " Currently switched off for mappings
-set notimeout ttimeout
+"set notimeout ttimeout
 
 " Make cursor keys jump out of insert. Your preference may differ
 imap <Left>     <Esc>
@@ -334,15 +334,6 @@ function! SetSrcOpts()
       endif
    endif
 endfunc
-
-" Pick a status line, or craft one yourself
-" statusline #1, two expressions -- Use a continuation line & quote SCCS keys
-" set statusline=%<%f%=\ %([%1*%M\%*%n%R\%Y%{VarExists(',GZ','b:zipflag')}\]%)\ %02c%V(%02B)C\ %3l/%LL\ %P
-" statusline #2, zero expressions
-" set statusline=%<%f%=\ %([%n%Xm%Xr%&,HL&h]%)\ %-19(%3l,%02c%'%o%)'%02Xb'
-" statusline #3, the default one
-" set statusline&
-
 
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")

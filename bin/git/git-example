@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -o errexit # exit script on errors
+set -o pipefail # throw error when piping goes wrong
+set -o nounset # throw error if undeclared variable is used
+# set -o xtrace # enable tracing, useful for debugging
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+echo $SCRIPT_DIR
+
+echo "git example --- does nothing"
+

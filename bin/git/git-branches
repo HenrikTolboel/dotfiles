@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -o errexit # exit script on errors
+set -o pipefail # throw error when piping goes wrong
+set -o nounset # throw error if undeclared variable is used
+# set -o xtrace # enable tracing, useful for debugging
+
+which git
+git --version
+export gitRoot=${gitRoot:-"$(git rev-parse --show-toplevel)"}
+
+#SCRIPT_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+echo $SCRIPT_DIR
+
+# Only output color if the command isn't being piped.
+if [ -t 1 ]; then
+  COLOR="always"
+else
+  COLOR="auto"
+fi
+
+git branch \
+  --all \
+  --color="$COLOR" \
+  --sort=authordate \
+  --format="%(color:blue)%(authordate:relative);%(color:red)%(authorname);%(color:white)%(color:bold)%(refname:short)" \
+  "$@" \
+  | column -s ";" -t
+

@@ -1,58 +1,63 @@
 # Local/private config goes in the include
 [include]
-        path = ~/.gitconfig.local
+   path = ~/.gitconfig.local
 [push]
-	default = upstream
-	recurseSubmodules = check
+   default = upstream
+   recurseSubmodules = check
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+   clean = git-lfs clean -- %f
+   smudge = git-lfs smudge -- %f
+   process = git-lfs filter-process
+   required = true
 [core]
-	autocrlf = true
-	longpaths = true
-	ignorecase = true
-	fscache = true
-	editor = vim
+   autocrlf = true
+   longpaths = true
+   ignorecase = true
+   fscache = true
+   editor = vim
 [pull]
-	rebase = true
+   rebase = true
 [fetch]
-	prune = true
+   prune = true
 [branch]
-	autosetuprebase = always
+   autosetuprebase = always
 [log]
-	follow = true
+   follow = true
 [credential]
    #helper = !'C:\\Users\\hto\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
 [http]
-	sslVerify = true
+   sslVerify = true
    #sslBackend = schannel
    #sslCAInfo = C:\\Tools\\git\\bin\\curl-ca-bundle.crt
 [alias]
-	unstage = reset HEAD --
-	last = log -1 HEAD
-	review = "!git fetch origin \"pull-requests/$1/merge\" && git checkout FETCH_HEAD #"
+   aliases = "config --get-regexp alias"
+   unstage = reset HEAD --
+   last = log -1 HEAD
+   review = "!git fetch origin \"pull-requests/$1/merge\" && git checkout FETCH_HEAD #"
+   example = "!$HOME/dotfiles/bin/git/git-example"
+   branches = "!$HOME/dotfiles/bin/git/git-branches"
+   my-branches="!git branches --color=always | grep -i \"$(git config user.name)\""
+   bs = branches
 [init]
-	defaultBranch = trunk
-	#templatedir = C:\\Users\\hto/.git-templates
+   defaultBranch = trunk
+   #templatedir = C:\\Users\\hto/.git-templates
 [merge]
-	renamelimit = 50000
+   renamelimit = 50000
 [status]
-	submoduleSummary = true
+   submoduleSummary = true
 [diff]
-	submodule = log
+   submodule = log
 [rerere]
-	enabled = true
-	autoupdate = true
+   enabled = true
+   autoupdate = true
 [http "https://bitbucket"]
-	sslVerify = false
+   sslVerify = false
 [rebase]
-	autoStash = true
-	autoSquash = true
+   autoStash = true
+   autoSquash = true
 [remote]
-	prune = true
+   prune = true
 [difftool]
-	prompt = false
+   prompt = false
 [format]
-	pretty = %h %aN - %Cgreen%s %Creset: %Cred%ar %C(reset)%C(auto)%d%C(reset)
+   pretty = %h %aN - %Cgreen%s %Creset: %Cred%ar %C(reset)%C(auto)%d%C(reset)
