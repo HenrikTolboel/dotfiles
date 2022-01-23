@@ -129,7 +129,8 @@ alias j="jobs -l"
 #alias greprm 'rm -i `grep -l \!\!:1 \!\!:2`'
 
 function grepvi() {
-   vim --  `grep -l $1 $2`
+   # grepvi <search term> <file pattern>
+   vim --  `grep -lr $1 $2`
 }
 
 
@@ -163,14 +164,16 @@ function code() {
    /mnt/c/Users/hto/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe \"\$@\";
 }
 
-export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
-export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
-export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
 
-alias java8='export JAVA_HOME=$JAVA_8_HOME'
-alias java11='export JAVA_HOME=$JAVA_11_HOME'
-alias java17='export JAVA_HOME=$JAVA_17_HOME'
+if [[ $OSTYPE == darwin* ]]; then
+   export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+   export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+   export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
 
-# default to Java 11
-java11
+   alias java8='export JAVA_HOME=$JAVA_8_HOME'
+   alias java11='export JAVA_HOME=$JAVA_11_HOME'
+   alias java17='export JAVA_HOME=$JAVA_17_HOME'
 
+   # default to Java 11
+   export JAVA_HOME=$JAVA_11_HOME
+fi
