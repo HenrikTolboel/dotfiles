@@ -44,6 +44,7 @@
 *.sh text eol=lf
 *.bash text eol=lf
 .vimrc text eol=lf
+.zshrc text eol=lf
 root/gradlew text eol=lf
 root/gradle/buildenv/wait-for eol=lf
 bin/git/* eol=lf
