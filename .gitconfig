@@ -5,12 +5,15 @@
    default = upstream
    recurseSubmodules = check
 [filter "lfs"]
-   clean = git-lfs clean -- %f
-   smudge = git-lfs smudge -- %f
-   process = git-lfs filter-process
-   required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [core]
-   autocrlf = true
+   # macos: https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings
+   autocrlf = input
+   # windows :
+   #autocrlf = true
    longpaths = true
    ignorecase = true
    fscache = true
@@ -39,7 +42,7 @@
    my-branches="!git branches --color=always | grep -i \"$(git config user.name)\""
    bs = branches
 [init]
-   defaultBranch = trunk
+	defaultBranch = master
    #templatedir = C:\\Users\\hto/.git-templates
 [merge]
    renamelimit = 50000
@@ -61,3 +64,9 @@
    prompt = false
 [format]
    pretty = %h %aN - %Cgreen%s %Creset: %Cred%ar %C(reset)%C(auto)%d%C(reset)
+[user]
+	name = Henrik Tolbøl
+	email = henrik.tolboel@frameo.net
+[safe]
+	directory = /Users/henrik/frameo/services-push-notification
+	directory = /Users/henrik/frameo/E2E-test

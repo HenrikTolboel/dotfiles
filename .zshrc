@@ -106,7 +106,7 @@ source $ZSH/oh-my-zsh.sh
 
 #set -xv
 if [[ -f .dircolors ]]; then
-   eval `dircolors .dircolors`
+   eval `gdircolors .dircolors`
 fi
 if [[ -f .zshrc.local ]]; then
   source .zshrc.local
@@ -135,8 +135,9 @@ function grepvi() {
 
 
 alias gw='`upfind -name gradlew`'
-alias chrome="/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
-#alias k=kubectl
+#alias chrome="/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
+alias d=docker
+alias k=kubectl
 
 function upfind() {
   # https://superuser.com/questions/455723/is-there-an-upwards-find
@@ -151,12 +152,12 @@ function upfind() {
   cd $curpwd
 }
 
-function idea() {
+function ideaXX() {
    $HOME/bin/idea >& /tmp/idea.log.$$ &
 }
 
 
-function open() {
+function openXX() {
   /mnt/c/Windows/explorer.exe $@
 }
 
@@ -164,16 +165,25 @@ function code() {
    /mnt/c/Users/hto/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe \"\$@\";
 }
 
+function chrome() {
+   open -a "Google chrome" $@
+}
+function finder() {
+   open -a "Finder" $@
+}
+
 
 if [[ $OSTYPE == darwin* ]]; then
-   export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+   #export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
    export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
    export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
 
-   alias java8='export JAVA_HOME=$JAVA_8_HOME'
+   #alias java8='export JAVA_HOME=$JAVA_8_HOME'
    alias java11='export JAVA_HOME=$JAVA_11_HOME'
    alias java17='export JAVA_HOME=$JAVA_17_HOME'
 
-   # default to Java 11
-   export JAVA_HOME=$JAVA_11_HOME
+   # default to Java 17
+   export JAVA_HOME=$JAVA_17_HOME
 fi
+
+#source /Users/henrik/.docker/init-zsh.sh || true # Added by Docker Desktop
