@@ -161,10 +161,6 @@ function openXX() {
   /mnt/c/Windows/explorer.exe $@
 }
 
-function code() {
-   /mnt/c/Users/hto/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe \"\$@\";
-}
-
 function chrome() {
    open -a "Google chrome" $@
 }
@@ -187,3 +183,9 @@ if [[ $OSTYPE == darwin* ]]; then
 fi
 
 #source /Users/henrik/.docker/init-zsh.sh || true # Added by Docker Desktop
+
+
+
+
+#export DOTNET_ROOT=/opt/homebrew/Cellar/dotnet/8.0.1/libexec
+#export PATH=$PATH:$DOTNET_ROOT
