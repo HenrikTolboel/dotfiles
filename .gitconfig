@@ -66,7 +66,7 @@
    pretty = %h %aN - %Cgreen%s %Creset: %Cred%ar %C(reset)%C(auto)%d%C(reset)
 [user]
 	name = Henrik Tolbøl
-	email = henrik.tolboel@frameo.net
+	email = henrik.tolboel@gmail.com
 [safe]
 	directory = /Users/henrik/frameo/services-push-notification
 	directory = /Users/henrik/frameo/E2E-test
