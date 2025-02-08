@@ -1,8 +1,10 @@
 # If you come from bash you might have to change your $PATH.
+# On a mac, the PATH gets set from the file /etc/paths
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+#export PATH=/opt/homebrew/bin:$PATH
 export PATH=$HOME/bin:$PATH
 
-export PATH="$PATH:/Users/henrik/bin/istio-1.9.4/bin"
+#export PATH="$PATH:/Users/henrik/bin/istio-1.9.4/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -170,16 +172,27 @@ function finder() {
 
 
 if [[ $OSTYPE == darwin* ]]; then
+   ## https://medium.com/notes-for-geeks/java-home-and-java-home-on-macos-f246cab643bd
+   #
+   # https://adoptium.net/installation/archives/
+   # cd /Users/henrik/Library/Java/JavaVirtualMachines
+   # fetch new release
+   # tar xzf <openjdk_binary>.tar.gz
+   # source ~/.zshrc
    #export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
    export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
    export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
+   export JAVA_21_HOME=$(/usr/libexec/java_home -v21)
+   export JAVA_23_HOME=$(/usr/libexec/java_home -v23)
 
    #alias java8='export JAVA_HOME=$JAVA_8_HOME'
    alias java11='export JAVA_HOME=$JAVA_11_HOME'
    alias java17='export JAVA_HOME=$JAVA_17_HOME'
+   alias java21='export JAVA_HOME=$JAVA_21_HOME'
+   alias java23='export JAVA_HOME=$JAVA_23_HOME'
 
-   # default to Java 17
-   export JAVA_HOME=$JAVA_17_HOME
+   # default to Java 21
+   export JAVA_HOME=$JAVA_21_HOME
 fi
 
 #source /Users/henrik/.docker/init-zsh.sh || true # Added by Docker Desktop
